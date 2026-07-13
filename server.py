@@ -10,8 +10,6 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
-        
         if self.path == '/api/ping':
             response = {"message": "pong"}
         elif self.path == '/api/info':
@@ -19,7 +17,10 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         else:
             response = {"error": "Not Found. Try /api/ping or /api/info"}
             
-        self.wfile.write(json.dumps(response).encode('utf-8'))
+        response_bytes = json.dumps(response).encode('utf-8')
+        self.send_header('Content-Length', str(len(response_bytes)))
+        self.end_headers()
+        self.wfile.write(response_bytes)
 
 if __name__ == "__main__":
     with socketserver.TCPServer(("", PORT), SimpleHTTPRequestHandler) as httpd:
