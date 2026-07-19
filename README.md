@@ -34,3 +34,9 @@ A demonstration of the smallest possible backend server written in Python, creat
    ```bash
    curl http://localhost:8000/api/ping
    ```
+
+## Week 3: Dockerized Postgres & Repository Layer
+
+Today's task is located in the `week3` folder! It has its own **separate README file** containing all the instructions, architecture details, and stretch goals.
+
+👉 [Go to Week 3 README](./week3/README.md)
